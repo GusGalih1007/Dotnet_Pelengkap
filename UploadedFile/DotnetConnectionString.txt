@@ -1,0 +1,9 @@
+Dotnet Connection String
+Data Source=DESKTOP-8SHLGGF\\SQLEXPRESS;
+Initial Catalog=learn_dotnet;
+Integrated Security=True;
+Connect Timeout=30;
+Encrypt=False;
+TrustServerCertificate=False;
+ApplicationIntent=ReadWrite;
+MultiSubnetFailover=False;

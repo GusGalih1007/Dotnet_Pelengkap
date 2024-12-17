@@ -7,6 +7,6 @@ namespace Pelengkap.Dto
 {
     public class ImportExcelDto
     {
-        public IFormFile? ExcelImport { get; set; }
+        public required IFormFile ExcelImport { get; set; }
     }
 }

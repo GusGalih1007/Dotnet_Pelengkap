@@ -1,0 +1,28 @@
+2024-12-04 20:35:19.817 +07:00 [INF] Starting Web API
+2024-12-04 20:38:45.799 +07:00 [INF] Starting Web API
+2024-12-04 20:38:46.306 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-04 20:38:46.309 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-04 20:38:46.310 +07:00 [INF] Hosting environment: Development
+2024-12-04 20:38:46.310 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-04 20:39:32.785 +07:00 [INF] Application is shutting down...
+2024-12-04 20:39:44.639 +07:00 [INF] Starting Web API
+2024-12-04 20:39:45.155 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-04 20:39:45.160 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-04 20:39:45.160 +07:00 [INF] Hosting environment: Development
+2024-12-04 20:39:45.161 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-04 20:40:23.137 +07:00 [INF] Starting Web API
+2024-12-04 20:40:23.570 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-04 20:40:23.576 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-04 20:40:23.576 +07:00 [INF] Hosting environment: Development
+2024-12-04 20:40:23.576 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-04 20:40:45.999 +07:00 [INF] Starting Web API
+2024-12-04 20:40:46.625 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-04 20:40:46.631 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-04 20:40:46.632 +07:00 [INF] Hosting environment: Development
+2024-12-04 20:40:46.632 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-04 20:41:26.273 +07:00 [INF] Starting Web API
+2024-12-04 20:41:26.679 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-04 20:41:26.683 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-04 20:41:26.683 +07:00 [INF] Hosting environment: Development
+2024-12-04 20:41:26.683 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-04 20:42:28.924 +07:00 [INF] Application is shutting down...

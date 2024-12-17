@@ -8,6 +8,6 @@ namespace Pelengkap.Dto
 {
     public class FileUploadDto
     {
-        public IFormFile? FormDetails { get; set; }
+        public required IFormFile FormDetails { get; set; }
     }
 }

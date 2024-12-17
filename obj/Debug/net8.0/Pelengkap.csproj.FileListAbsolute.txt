@@ -147,3 +147,12 @@ C:\belajar_dotnet\Pelengkap\obj\Debug\net8.0\Pelengkap.pdb
 C:\belajar_dotnet\Pelengkap\obj\Debug\net8.0\Pelengkap.genruntimeconfig.cache
 C:\belajar_dotnet\Pelengkap\obj\Debug\net8.0\ref\Pelengkap.dll
 C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\ExcelDataReader.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.AspNetCore.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.Extensions.Logging.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.Formatting.Compact.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.Settings.Configuration.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
+C:\belajar_dotnet\Pelengkap\bin\Debug\net8.0\Serilog.Sinks.File.dll

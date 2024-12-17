@@ -1,0 +1,7 @@
+2024-12-04 20:18:33.638 +07:00 [INF] Starting Web API
+2024-12-04 20:19:44.038 +07:00 [INF] Starting Web API
+2024-12-04 20:26:11.346 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-04 20:26:11.356 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-04 20:26:11.357 +07:00 [INF] Hosting environment: Development
+2024-12-04 20:26:11.357 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-04 20:28:01.644 +07:00 [INF] Application is shutting down...

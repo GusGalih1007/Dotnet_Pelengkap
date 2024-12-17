@@ -11,5 +11,8 @@ namespace Pelengkap.DataBase
     {
         public required DbSet<FileDetails> FileDetails { get; set; }
         public required DbSet<ExcelImport> Students { get; set; }
+        public required DbSet<Teacher> TeachersJoin { get; set; }
+        public required DbSet<Department> DepartmentsJoin { get; set; }
+        public required DbSet<Student> StudentsJoin { get; set; }
     }
 }

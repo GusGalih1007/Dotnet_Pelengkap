@@ -1,0 +1,1529 @@
+2024-12-06 08:10:02.217 +07:00 [INF] Starting Web API
+2024-12-06 08:10:17.502 +07:00 [INF] Starting Web API
+2024-12-06 08:10:18.919 +07:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-12-06 08:10:18.950 +07:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-12-06 08:10:18.952 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2024-12-06 08:10:18.953 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2024-12-06 08:10:18.980 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2024-12-06 08:10:18.999 +07:00 [INF] Applying migration '20241206011005_AlterAgain1'.
+2024-12-06 08:10:19.072 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [DepartmentsJoin] DROP CONSTRAINT [FK_DepartmentsJoin_TeachersJoin_TeacherId];
+2024-12-06 08:10:19.112 +07:00 [INF] Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DROP INDEX [IX_DepartmentsJoin_TeacherId] ON [DepartmentsJoin];
+DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[DepartmentsJoin]') AND [c].[name] = N'TeacherId');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [DepartmentsJoin] DROP CONSTRAINT [' + @var0 + '];');
+UPDATE [DepartmentsJoin] SET [TeacherId] = 0 WHERE [TeacherId] IS NULL;
+ALTER TABLE [DepartmentsJoin] ALTER COLUMN [TeacherId] int NOT NULL;
+ALTER TABLE [DepartmentsJoin] ADD DEFAULT 0 FOR [TeacherId];
+CREATE INDEX [IX_DepartmentsJoin_TeacherId] ON [DepartmentsJoin] ([TeacherId]);
+2024-12-06 08:10:19.116 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [DepartmentsJoin] ADD CONSTRAINT [FK_DepartmentsJoin_TeachersJoin_TeacherId] FOREIGN KEY ([TeacherId]) REFERENCES [TeachersJoin] ([Id]) ON DELETE CASCADE;
+2024-12-06 08:10:19.118 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20241206011005_AlterAgain1', N'8.0.11');
+2024-12-06 08:23:48.112 +07:00 [INF] Starting Web API
+2024-12-06 08:23:48.514 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 08:23:48.518 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 08:23:48.519 +07:00 [INF] Hosting environment: Development
+2024-12-06 08:23:48.519 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 08:23:55.355 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/ - null null
+2024-12-06 08:23:55.435 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 08:23:55.445 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/ - 404 0 null 97.9984ms
+2024-12-06 08:23:55.462 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5206/, Response status code: 404
+2024-12-06 08:23:59.394 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:23:59.524 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 129.6675ms
+2024-12-06 08:23:59.554 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:23:59.559 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 4.4182ms
+2024-12-06 08:23:59.964 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:24:00.151 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 187.3635ms
+2024-12-06 08:24:08.344 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/Department/create - multipart/form-data; boundary=----WebKitFormBoundarytWI3aSL7k07DcWF5 238
+2024-12-06 08:24:08.347 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 08:24:08.413 +07:00 [INF] Route matched with {action = "Create", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Departmentjoin.CreateDeparmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:24:10.200 +07:00 [INF] Executed DbCommand (47ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [TeachersJoin] AS [t]
+        WHERE [t].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 08:24:10.240 +07:00 [INF] Executing NotFoundObjectResult, writing value of type 'System.String'.
+2024-12-06 08:24:10.246 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Create (Pelengkap) in 1827.9833ms
+2024-12-06 08:24:10.246 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 08:24:10.261 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/Department/create - 404 null text/plain; charset=utf-8 1917.0895ms
+2024-12-06 08:24:40.905 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/Department/create - multipart/form-data; boundary=----WebKitFormBoundaryhgAXj7UTEmfqc673 239
+2024-12-06 08:24:40.906 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 08:24:40.907 +07:00 [INF] Route matched with {action = "Create", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Departmentjoin.CreateDeparmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:24:40.956 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [TeachersJoin] AS [t]
+        WHERE [t].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 08:24:41.187 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [DepartmentsJoin] ([Name], [TeacherId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1);
+2024-12-06 08:24:41.237 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'Pelengkap.Dto.Departmentjoin.DepartmentjoinDto'.
+2024-12-06 08:24:41.277 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Create (Pelengkap) in 369.7727ms
+2024-12-06 08:24:41.277 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 08:24:41.279 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/Department/create - 201 null application/json; charset=utf-8 373.5314ms
+2024-12-06 08:24:53.289 +07:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5206/Department/edit/1 - multipart/form-data; boundary=----WebKitFormBoundarySo2dnq8gXpjXdtI9 238
+2024-12-06 08:24:53.290 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:24:53.306 +07:00 [INF] Route matched with {action = "Update", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(Int32, Pelengkap.Dto.Departmentjoin.UpdateDepartmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:24:53.475 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+WHERE [d].[Id] = @__id_0
+2024-12-06 08:24:53.493 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [DepartmentsJoin] SET [Name] = @p0, [TeacherId] = @p1
+OUTPUT 1
+WHERE [Id] = @p2;
+2024-12-06 08:24:53.529 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'Pelengkap.DataBase.ApplicationDBContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:a18d4838-2fc0-4c3e-8408-a609ceb2dad3
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:a18d4838-2fc0-4c3e-8408-a609ceb2dad3
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2024-12-06 08:24:53.531 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Update (Pelengkap) in 223.9645ms
+2024-12-06 08:24:53.531 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:24:53.532 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:a18d4838-2fc0-4c3e-8408-a609ceb2dad3
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pelengkap.Repository.DepartmentRepository.UpdateAsync(Int32 id, UpdateDepartmentDto updateDepartment) in C:\belajar_dotnet\Pelengkap\Repository\DepartmentRepository.cs:line 77
+   at Pelengkap.Controller.DepartmentController.Update(Int32 id, UpdateDepartmentDto updateDepartment) in C:\belajar_dotnet\Pelengkap\Controller\DepartmentController.cs:line 87
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-06 08:24:53.563 +07:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5206/Department/edit/1 - 500 null text/plain; charset=utf-8 273.8249ms
+2024-12-06 08:25:43.692 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:25:43.696 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 4.1406ms
+2024-12-06 08:25:43.739 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:25:43.739 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3206ms
+2024-12-06 08:25:43.935 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:25:43.971 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 36.0755ms
+2024-12-06 08:25:47.529 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:25:47.530 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 0.9489ms
+2024-12-06 08:25:47.577 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:25:47.577 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.2979ms
+2024-12-06 08:25:47.707 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:25:47.733 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 25.9633ms
+2024-12-06 08:26:04.804 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:26:04.805 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 0.8136ms
+2024-12-06 08:26:04.856 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:26:04.856 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.2821ms
+2024-12-06 08:26:04.992 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:26:05.020 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 28.2726ms
+2024-12-06 08:26:21.371 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:26:21.372 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.0966ms
+2024-12-06 08:26:21.418 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:26:21.418 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.245ms
+2024-12-06 08:26:21.580 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:26:21.603 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 22.7079ms
+2024-12-06 08:26:46.912 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:26:46.913 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.0328ms
+2024-12-06 08:26:46.988 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:26:46.988 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.2128ms
+2024-12-06 08:26:47.117 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:26:47.147 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 30.2374ms
+2024-12-06 08:27:05.112 +07:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5206/Department/edit/1 - multipart/form-data; boundary=----WebKitFormBoundaryMchzy1tM5mCxlASO 238
+2024-12-06 08:27:05.112 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:27:05.123 +07:00 [INF] Route matched with {action = "Update", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(Int32, Pelengkap.Dto.Departmentjoin.UpdateDepartmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:27:05.135 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+WHERE [d].[Id] = @__id_0
+2024-12-06 08:27:05.140 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [DepartmentsJoin] SET [Name] = @p0, [TeacherId] = @p1
+OUTPUT 1
+WHERE [Id] = @p2;
+2024-12-06 08:27:05.143 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'Pelengkap.DataBase.ApplicationDBContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:a18d4838-2fc0-4c3e-8408-a609ceb2dad3
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:a18d4838-2fc0-4c3e-8408-a609ceb2dad3
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2024-12-06 08:27:05.147 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Update (Pelengkap) in 23.7563ms
+2024-12-06 08:27:05.147 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:27:05.148 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:a18d4838-2fc0-4c3e-8408-a609ceb2dad3
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pelengkap.Repository.DepartmentRepository.UpdateAsync(Int32 id, UpdateDepartmentDto updateDepartment)
+   at Pelengkap.Controller.DepartmentController.Update(Int32 id, UpdateDepartmentDto updateDepartment)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-06 08:27:05.153 +07:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5206/Department/edit/1 - 500 null text/plain; charset=utf-8 40.8224ms
+2024-12-06 08:27:17.631 +07:00 [INF] Starting Web API
+2024-12-06 08:27:18.082 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 08:27:18.088 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 08:27:18.088 +07:00 [INF] Hosting environment: Development
+2024-12-06 08:27:18.089 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 08:27:21.511 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:27:21.691 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 181.3493ms
+2024-12-06 08:27:21.716 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:27:21.720 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 4.0676ms
+2024-12-06 08:27:21.871 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:27:22.088 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 216.9482ms
+2024-12-06 08:27:27.103 +07:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5206/Department/edit/1 - multipart/form-data; boundary=----WebKitFormBoundaryoBBQXKBIMpoUrqR4 238
+2024-12-06 08:27:27.114 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 08:27:27.119 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:27:27.167 +07:00 [INF] Route matched with {action = "Update", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(Int32, Pelengkap.Dto.Departmentjoin.UpdateDepartmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:27:28.798 +07:00 [INF] Executed DbCommand (45ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+WHERE [d].[Id] = @__id_0
+2024-12-06 08:27:29.078 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [DepartmentsJoin] SET [Name] = @p0, [TeacherId] = @p1
+OUTPUT 1
+WHERE [Id] = @p2;
+2024-12-06 08:27:29.115 +07:00 [ERR] An exception occurred in the database while saving changes for context type 'Pelengkap.DataBase.ApplicationDBContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:81b71b99-0c85-4c50-a08c-78b764602cc2
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:81b71b99-0c85-4c50-a08c-78b764602cc2
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2024-12-06 08:27:29.125 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Update (Pelengkap) in 1953.3ms
+2024-12-06 08:27:29.125 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:27:29.129 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_DepartmentsJoin_TeachersJoin_TeacherId". The conflict occurred in database "materi_pelengkap", table "dbo.TeachersJoin", column 'Id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithRowsAffectedOnlyAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:81b71b99-0c85-4c50-a08c-78b764602cc2
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pelengkap.Repository.DepartmentRepository.UpdateAsync(Int32 id, UpdateDepartmentDto updateDepartment) in C:\belajar_dotnet\Pelengkap\Repository\DepartmentRepository.cs:line 77
+   at Pelengkap.Controller.DepartmentController.Update(Int32 id, UpdateDepartmentDto updateDepartment) in C:\belajar_dotnet\Pelengkap\Controller\DepartmentController.cs:line 87
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-06 08:27:29.167 +07:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5206/Department/edit/1 - 500 null text/plain; charset=utf-8 2063.1594ms
+2024-12-06 08:29:02.115 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:29:02.118 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.5448ms
+2024-12-06 08:29:02.160 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:29:02.161 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.6645ms
+2024-12-06 08:29:02.361 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:29:02.376 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 15.152ms
+2024-12-06 08:29:14.393 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:29:14.399 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 6.3471ms
+2024-12-06 08:29:14.435 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:29:14.436 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3674ms
+2024-12-06 08:29:14.621 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:29:14.631 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 10.5604ms
+2024-12-06 08:29:31.589 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:29:31.590 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 0.9961ms
+2024-12-06 08:29:31.623 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:29:31.624 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3765ms
+2024-12-06 08:29:31.931 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:29:31.960 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 29.6348ms
+2024-12-06 08:29:54.766 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:29:54.767 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 0.7707ms
+2024-12-06 08:29:54.803 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:29:54.803 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3784ms
+2024-12-06 08:29:54.965 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:29:54.986 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 21.2833ms
+2024-12-06 08:30:06.423 +07:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5206/Department/edit/1 - multipart/form-data; boundary=----WebKitFormBoundaryCbEWDXf3QWDeAovN 238
+2024-12-06 08:30:06.424 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:30:06.442 +07:00 [INF] Route matched with {action = "Update", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(Int32, Pelengkap.Dto.Departmentjoin.UpdateDepartmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:30:06.497 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [TeachersJoin] AS [t]
+        WHERE [t].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 08:30:06.506 +07:00 [INF] Executing NotFoundObjectResult, writing value of type 'System.String'.
+2024-12-06 08:30:06.506 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Update (Pelengkap) in 64.0644ms
+2024-12-06 08:30:06.506 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:30:06.507 +07:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5206/Department/edit/1 - 404 null text/plain; charset=utf-8 84.3219ms
+2024-12-06 08:30:27.436 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 08:30:27.438 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.3838ms
+2024-12-06 08:30:27.472 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 08:30:27.473 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.4255ms
+2024-12-06 08:30:27.797 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 08:30:27.820 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 23.4559ms
+2024-12-06 08:30:44.249 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 08:30:44.250 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 08:30:44.258 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:30:44.372 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 08:30:44.375 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 08:30:44.390 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 131.8154ms
+2024-12-06 08:30:44.390 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 08:30:44.391 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 141.1551ms
+2024-12-06 08:30:50.450 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department/2 - null null
+2024-12-06 08:30:50.450 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetById (Pelengkap)'
+2024-12-06 08:30:50.461 +07:00 [INF] Route matched with {action = "GetById", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:30:50.475 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+WHERE [d].[Id] = @__id_0
+2024-12-06 08:30:50.481 +07:00 [INF] Executing OkObjectResult, writing value of type 'Pelengkap.Dto.Departmentjoin.DepartmentjoinDto'.
+2024-12-06 08:30:50.481 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetById (Pelengkap) in 19.7882ms
+2024-12-06 08:30:50.481 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetById (Pelengkap)'
+2024-12-06 08:30:50.482 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department/2 - 200 null application/json; charset=utf-8 31.7681ms
+2024-12-06 08:31:05.559 +07:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5206/Department/edit/2 - multipart/form-data; boundary=----WebKitFormBoundaryAoAMwAYi4ezyK2mu 238
+2024-12-06 08:31:05.561 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:31:05.568 +07:00 [INF] Route matched with {action = "Update", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(Int32, Pelengkap.Dto.Departmentjoin.UpdateDepartmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:31:05.577 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [TeachersJoin] AS [t]
+        WHERE [t].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 08:31:05.580 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+WHERE [d].[Id] = @__id_0
+2024-12-06 08:31:05.589 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [DepartmentsJoin] SET [Name] = @p0
+OUTPUT 1
+WHERE [Id] = @p1;
+2024-12-06 08:31:05.595 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 08:31:05.602 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Update (Pelengkap) in 33.4386ms
+2024-12-06 08:31:05.602 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Update (Pelengkap)'
+2024-12-06 08:31:05.602 +07:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5206/Department/edit/2 - 200 null application/json; charset=utf-8 42.9597ms
+2024-12-06 08:31:14.715 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 08:31:14.715 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 08:31:14.716 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:31:14.719 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 08:31:14.721 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 08:31:14.722 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 5.8969ms
+2024-12-06 08:31:14.722 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 08:31:14.722 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 6.9732ms
+2024-12-06 08:31:23.605 +07:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5206/Department/2 - null null
+2024-12-06 08:31:23.605 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Delete (Pelengkap)'
+2024-12-06 08:31:23.616 +07:00 [INF] Route matched with {action = "Delete", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(Int32) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:31:23.627 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+WHERE [d].[Id] = @__id_0
+2024-12-06 08:31:23.647 +07:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [DepartmentsJoin]
+OUTPUT 1
+WHERE [Id] = @p0;
+2024-12-06 08:31:23.651 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-12-06 08:31:23.651 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Delete (Pelengkap) in 34.2205ms
+2024-12-06 08:31:23.651 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Delete (Pelengkap)'
+2024-12-06 08:31:23.651 +07:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5206/Department/2 - 200 null text/plain; charset=utf-8 46.1976ms
+2024-12-06 08:31:29.281 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 08:31:29.281 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 08:31:29.281 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 08:31:29.288 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 08:31:29.289 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 08:31:29.289 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 7.9011ms
+2024-12-06 08:31:29.289 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 08:31:29.291 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 9.9378ms
+2024-12-06 08:34:47.355 +07:00 [INF] Starting Web API
+2024-12-06 08:34:47.979 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 08:34:47.985 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 08:34:47.986 +07:00 [INF] Hosting environment: Development
+2024-12-06 08:34:47.986 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 09:11:47.940 +07:00 [INF] Starting Web API
+2024-12-06 09:11:48.293 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 09:11:48.297 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 09:11:48.297 +07:00 [INF] Hosting environment: Development
+2024-12-06 09:11:48.297 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 09:12:08.937 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 09:12:08.937 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 09:12:09.104 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 169.2901ms
+2024-12-06 09:12:09.105 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 170.8522ms
+2024-12-06 09:12:09.143 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 09:12:09.147 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 3.7835ms
+2024-12-06 09:12:09.542 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 09:12:09.787 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 245.0954ms
+2024-12-06 09:12:18.157 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 09:12:18.159 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.6716ms
+2024-12-06 09:12:18.194 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 09:12:18.194 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.64ms
+2024-12-06 09:12:18.399 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 09:12:18.413 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 14.5005ms
+2024-12-06 09:12:29.541 +07:00 [INF] Starting Web API
+2024-12-06 09:12:29.970 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 09:12:29.977 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 09:12:29.978 +07:00 [INF] Hosting environment: Development
+2024-12-06 09:12:29.978 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 09:12:30.569 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 09:12:30.780 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 215.3908ms
+2024-12-06 09:12:30.813 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 09:12:30.820 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 7.0426ms
+2024-12-06 09:12:31.007 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 09:12:31.212 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 205.0261ms
+2024-12-06 09:12:44.277 +07:00 [INF] Application is shutting down...
+2024-12-06 11:15:28.889 +07:00 [INF] Starting Web API
+2024-12-06 11:15:29.287 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 11:15:29.293 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 11:15:29.294 +07:00 [INF] Hosting environment: Development
+2024-12-06 11:15:29.294 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 11:15:29.886 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:15:30.152 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 233.9271ms
+2024-12-06 11:15:30.449 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:15:30.453 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 3.586ms
+2024-12-06 11:15:31.131 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:15:31.533 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 402.2142ms
+2024-12-06 11:15:41.394 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:15:41.411 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 11:15:41.421 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:15:41.450 +07:00 [INF] Route matched with {action = "GetAll", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:15:41.527 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap) in 72.8371ms
+2024-12-06 11:15:41.528 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:15:41.529 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'Pelengkap.Interface.ILinqservice' while attempting to activate 'Pelengkap.Controller.GroupJoinController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method9(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-06 11:15:41.550 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 500 null text/plain; charset=utf-8 156.3989ms
+2024-12-06 11:16:26.684 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:16:26.687 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.526ms
+2024-12-06 11:16:26.721 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:16:26.721 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.5747ms
+2024-12-06 11:16:26.896 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:16:26.924 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 27.602ms
+2024-12-06 11:16:41.567 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:16:41.568 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:16:41.578 +07:00 [INF] Route matched with {action = "GetAll", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:16:41.579 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap) in 0.5689ms
+2024-12-06 11:16:41.581 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:16:41.583 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'Pelengkap.Interface.ILinqservice' while attempting to activate 'Pelengkap.Controller.GroupJoinController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.ThrowHelperUnableToResolveService(Type type, Type requiredBy)
+   at lambda_method17(Closure, IServiceProvider, Object[])
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-06 11:16:41.588 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 500 null text/plain; charset=utf-8 21.6373ms
+2024-12-06 11:16:53.180 +07:00 [INF] Starting Web API
+2024-12-06 11:16:53.673 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 11:16:53.681 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 11:16:53.682 +07:00 [INF] Hosting environment: Development
+2024-12-06 11:16:53.683 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 11:16:53.754 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:16:53.946 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 194.3861ms
+2024-12-06 11:16:53.977 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:16:53.981 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 4.1487ms
+2024-12-06 11:16:54.143 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:16:54.476 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 332.8756ms
+2024-12-06 11:17:07.728 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:17:07.748 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 11:17:07.759 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:17:07.797 +07:00 [INF] Route matched with {action = "GetAll", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:17:09.415 +07:00 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 11:17:09.575 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:17:09.640 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<GroupJoinIterator>d__119`4[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Group.StudentGroupDepartDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:17:09.690 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap) in 1880.6571ms
+2024-12-06 11:17:09.691 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:17:09.720 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 200 null application/json; charset=utf-8 1992.1166ms
+2024-12-06 11:17:35.715 +07:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5206/student/edit/4 - multipart/form-data; boundary=----WebKitFormBoundaryLbNXsph4ATc6pVNh 345
+2024-12-06 11:17:35.717 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.StudentController.Update (Pelengkap)'
+2024-12-06 11:17:35.751 +07:00 [INF] Route matched with {action = "Update", controller = "Student"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(Int32, Pelengkap.Dto.Studentjoin.UpdateStudentDto) on controller Pelengkap.Controller.StudentController (Pelengkap).
+2024-12-06 11:17:35.940 +07:00 [INF] Executed DbCommand (21ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [DepartmentsJoin] AS [d]
+        WHERE [d].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 11:17:35.963 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+WHERE [s].[Id] = @__id_0
+2024-12-06 11:17:36.068 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [StudentsJoin] SET [Firstname] = @p0, [Lastname] = @p1
+OUTPUT 1
+WHERE [Id] = @p2;
+2024-12-06 11:17:36.089 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-12-06 11:17:36.090 +07:00 [INF] Executed action Pelengkap.Controller.StudentController.Update (Pelengkap) in 338.3913ms
+2024-12-06 11:17:36.091 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.StudentController.Update (Pelengkap)'
+2024-12-06 11:17:36.095 +07:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5206/student/edit/4 - 200 null text/plain; charset=utf-8 379.2579ms
+2024-12-06 11:17:42.112 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:17:42.113 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:17:42.113 +07:00 [INF] Route matched with {action = "GetAll", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:17:42.231 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 11:17:42.234 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:17:42.236 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<GroupJoinIterator>d__119`4[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Group.StudentGroupDepartDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:17:42.237 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap) in 123.1001ms
+2024-12-06 11:17:42.237 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:17:42.237 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 200 null application/json; charset=utf-8 124.9633ms
+2024-12-06 11:17:52.378 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:17:52.378 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:17:52.389 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:17:52.420 +07:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:17:52.432 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:17:52.441 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 51.982ms
+2024-12-06 11:17:52.445 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:17:52.445 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 67.8138ms
+2024-12-06 11:26:13.337 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/teacher/create - multipart/form-data; boundary=----WebKitFormBoundarydSwL9LAuU8tPCpLx 337
+2024-12-06 11:26:13.338 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.TeacherController.Create (Pelengkap)'
+2024-12-06 11:26:13.353 +07:00 [INF] Route matched with {action = "Create", controller = "Teacher"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Teacherjoin.CreateTeacherFDto) on controller Pelengkap.Controller.TeacherController (Pelengkap).
+2024-12-06 11:26:13.441 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [TeachersJoin] ([City], [First], [Last])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+2024-12-06 11:26:13.462 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'Pelengkap.Dto.Teacherjoin.TeacherjoinDto'.
+2024-12-06 11:26:13.481 +07:00 [INF] Executed action Pelengkap.Controller.TeacherController.Create (Pelengkap) in 127.7725ms
+2024-12-06 11:26:13.482 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.TeacherController.Create (Pelengkap)'
+2024-12-06 11:26:13.482 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/teacher/create - 201 null application/json; charset=utf-8 144.8193ms
+2024-12-06 11:26:28.903 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/teacher - null null
+2024-12-06 11:26:28.903 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.TeacherController.GetAll (Pelengkap)'
+2024-12-06 11:26:28.912 +07:00 [INF] Route matched with {action = "GetAll", controller = "Teacher"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.TeacherController (Pelengkap).
+2024-12-06 11:26:28.937 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 11:26:28.939 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Teacher, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Teacherjoin.TeacherjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:26:28.940 +07:00 [INF] Executed action Pelengkap.Controller.TeacherController.GetAll (Pelengkap) in 27.3461ms
+2024-12-06 11:26:28.940 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.TeacherController.GetAll (Pelengkap)'
+2024-12-06 11:26:28.941 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/teacher - 200 null application/json; charset=utf-8 37.7642ms
+2024-12-06 11:26:46.921 +07:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5206/teacher/edit/3 - multipart/form-data; boundary=----WebKitFormBoundary0MlqNVsQzqM3Zubf 332
+2024-12-06 11:26:46.922 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.TeacherController.Update (Pelengkap)'
+2024-12-06 11:26:46.934 +07:00 [INF] Route matched with {action = "Update", controller = "Teacher"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(Int32, Pelengkap.Dto.Teacherjoin.UpdateTeacherDto) on controller Pelengkap.Controller.TeacherController (Pelengkap).
+2024-12-06 11:26:46.958 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+WHERE [t].[Id] = @__id_0
+2024-12-06 11:26:46.964 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@p1='?' (DbType = Int32), @p0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [TeachersJoin] SET [Last] = @p0
+OUTPUT 1
+WHERE [Id] = @p1;
+2024-12-06 11:26:46.965 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Teacherjoin.TeacherjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:26:46.968 +07:00 [INF] Executed action Pelengkap.Controller.TeacherController.Update (Pelengkap) in 33.8391ms
+2024-12-06 11:26:46.969 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.TeacherController.Update (Pelengkap)'
+2024-12-06 11:26:46.970 +07:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5206/teacher/edit/3 - 200 null application/json; charset=utf-8 48.7978ms
+2024-12-06 11:26:55.817 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:26:55.817 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:26:55.818 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:26:55.827 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:26:55.832 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:26:55.833 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 14.4233ms
+2024-12-06 11:26:55.838 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:26:55.839 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 21.6562ms
+2024-12-06 11:27:12.214 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/Department/create - multipart/form-data; boundary=----WebKitFormBoundary0Z02YVUicjQldj8u 236
+2024-12-06 11:27:12.214 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 11:27:12.221 +07:00 [INF] Route matched with {action = "Create", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Departmentjoin.CreateDeparmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:27:12.247 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [TeachersJoin] AS [t]
+        WHERE [t].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 11:27:12.273 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [DepartmentsJoin] ([Name], [TeacherId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1);
+2024-12-06 11:27:12.278 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'Pelengkap.Dto.Departmentjoin.DepartmentjoinDto'.
+2024-12-06 11:27:12.279 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Create (Pelengkap) in 57.4186ms
+2024-12-06 11:27:12.279 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 11:27:12.279 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/Department/create - 201 null application/json; charset=utf-8 65.4977ms
+2024-12-06 11:27:18.587 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:27:18.588 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:27:18.588 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:27:18.594 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:27:18.598 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:27:18.606 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 17.4417ms
+2024-12-06 11:27:18.607 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:27:18.607 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 20.0442ms
+2024-12-06 11:27:44.728 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:27:44.729 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:27:44.729 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:27:44.737 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:27:44.742 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:27:44.744 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 15.43ms
+2024-12-06 11:27:44.745 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:27:44.745 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 17.1923ms
+2024-12-06 11:27:57.838 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/student/create - multipart/form-data; boundary=----WebKitFormBoundaryrFErLLj5KABaLegQ 347
+2024-12-06 11:27:57.839 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.StudentController.Create (Pelengkap)'
+2024-12-06 11:27:57.853 +07:00 [INF] Route matched with {action = "Create", controller = "Student"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Studentjoin.CreateStudentsJoin) on controller Pelengkap.Controller.StudentController (Pelengkap).
+2024-12-06 11:27:57.871 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [DepartmentsJoin] AS [d]
+        WHERE [d].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 11:27:57.879 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [StudentsJoin] ([DepartmentId], [Firstname], [Lastname])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+2024-12-06 11:27:57.882 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'Pelengkap.Dto.Studentjoin.StudentjoinDto'.
+2024-12-06 11:27:57.883 +07:00 [INF] Executed action Pelengkap.Controller.StudentController.Create (Pelengkap) in 30.0997ms
+2024-12-06 11:27:57.883 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.StudentController.Create (Pelengkap)'
+2024-12-06 11:27:57.883 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/student/create - 201 null application/json; charset=utf-8 45.3717ms
+2024-12-06 11:28:04.773 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:28:04.774 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:28:04.774 +07:00 [INF] Route matched with {action = "GetAll", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:28:04.784 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 11:28:04.801 +07:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:28:04.807 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<GroupJoinIterator>d__119`4[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Group.StudentGroupDepartDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:28:04.811 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap) in 36.5327ms
+2024-12-06 11:28:04.811 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:28:04.811 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 200 null application/json; charset=utf-8 37.7463ms
+2024-12-06 11:28:33.271 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/student/create - multipart/form-data; boundary=----WebKitFormBoundarySLKPftTisENAMtvq 342
+2024-12-06 11:28:33.272 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.StudentController.Create (Pelengkap)'
+2024-12-06 11:28:33.272 +07:00 [INF] Route matched with {action = "Create", controller = "Student"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Studentjoin.CreateStudentsJoin) on controller Pelengkap.Controller.StudentController (Pelengkap).
+2024-12-06 11:28:33.297 +07:00 [INF] Executed DbCommand (19ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [DepartmentsJoin] AS [d]
+        WHERE [d].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 11:28:33.317 +07:00 [INF] Executed DbCommand (11ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [StudentsJoin] ([DepartmentId], [Firstname], [Lastname])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+2024-12-06 11:28:33.318 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'Pelengkap.Dto.Studentjoin.StudentjoinDto'.
+2024-12-06 11:28:33.319 +07:00 [INF] Executed action Pelengkap.Controller.StudentController.Create (Pelengkap) in 46.6893ms
+2024-12-06 11:28:33.320 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.StudentController.Create (Pelengkap)'
+2024-12-06 11:28:33.322 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/student/create - 201 null application/json; charset=utf-8 50.3649ms
+2024-12-06 11:28:40.192 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:28:40.192 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:28:40.192 +07:00 [INF] Route matched with {action = "GetAll", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:28:40.208 +07:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 11:28:40.249 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:28:40.261 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<GroupJoinIterator>d__119`4[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Group.StudentGroupDepartDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:28:40.263 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap) in 70.4933ms
+2024-12-06 11:28:40.263 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:28:40.264 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 200 null application/json; charset=utf-8 72.0056ms
+2024-12-06 11:29:51.886 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/teacher/create - multipart/form-data; boundary=----WebKitFormBoundaryGcsB10iYtw5OVg00 334
+2024-12-06 11:29:51.887 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.TeacherController.Create (Pelengkap)'
+2024-12-06 11:29:51.887 +07:00 [INF] Route matched with {action = "Create", controller = "Teacher"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Teacherjoin.CreateTeacherFDto) on controller Pelengkap.Controller.TeacherController (Pelengkap).
+2024-12-06 11:29:51.908 +07:00 [INF] Executed DbCommand (13ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [TeachersJoin] ([City], [First], [Last])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2);
+2024-12-06 11:29:51.909 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'Pelengkap.Dto.Teacherjoin.TeacherjoinDto'.
+2024-12-06 11:29:51.910 +07:00 [INF] Executed action Pelengkap.Controller.TeacherController.Create (Pelengkap) in 23.0948ms
+2024-12-06 11:29:51.910 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.TeacherController.Create (Pelengkap)'
+2024-12-06 11:29:51.912 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/teacher/create - 201 null application/json; charset=utf-8 25.4791ms
+2024-12-06 11:30:04.240 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/Department/create - multipart/form-data; boundary=----WebKitFormBoundaryEUXcKLUj5g1ZrPtk 238
+2024-12-06 11:30:04.242 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 11:30:04.242 +07:00 [INF] Route matched with {action = "Create", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Departmentjoin.CreateDeparmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:30:04.252 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [TeachersJoin] AS [t]
+        WHERE [t].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 11:30:04.275 +07:00 [INF] Executed DbCommand (14ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [DepartmentsJoin] ([Name], [TeacherId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1);
+2024-12-06 11:30:04.277 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'Pelengkap.Dto.Departmentjoin.DepartmentjoinDto'.
+2024-12-06 11:30:04.278 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Create (Pelengkap) in 36.1551ms
+2024-12-06 11:30:04.279 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 11:30:04.279 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/Department/create - 201 null application/json; charset=utf-8 39.2994ms
+2024-12-06 11:30:10.463 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:30:10.463 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:30:10.464 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:30:10.474 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:30:10.477 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:30:10.478 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 13.8255ms
+2024-12-06 11:30:10.478 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:30:10.479 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 16.424ms
+2024-12-06 11:30:15.596 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:30:15.597 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:30:15.597 +07:00 [INF] Route matched with {action = "GetAll", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:30:15.601 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 11:30:15.612 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:30:15.617 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<GroupJoinIterator>d__119`4[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Group.StudentGroupDepartDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:30:15.621 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap) in 23.7189ms
+2024-12-06 11:30:15.621 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:30:15.643 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 200 null application/json; charset=utf-8 46.0438ms
+2024-12-06 11:31:14.470 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:31:14.471 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:31:14.471 +07:00 [INF] Route matched with {action = "GetAll", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:31:14.483 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 11:31:14.490 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:31:14.495 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<GroupJoinIterator>d__119`4[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Group.StudentGroupDepartDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:31:14.496 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap) in 25.1488ms
+2024-12-06 11:31:14.496 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap)'
+2024-12-06 11:31:14.496 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 200 null application/json; charset=utf-8 26.1987ms
+2024-12-06 11:31:27.619 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:31:27.620 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:31:27.620 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:31:27.625 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:31:27.626 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:31:27.628 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 8.2315ms
+2024-12-06 11:31:27.629 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:31:27.633 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 12.8829ms
+2024-12-06 11:31:31.109 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:31:31.110 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:31:31.110 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:31:31.117 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:31:31.118 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:31:31.122 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 11.1955ms
+2024-12-06 11:31:31.123 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:31:31.125 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 15.7093ms
+2024-12-06 11:31:34.584 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:31:34.585 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:31:34.585 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:31:34.589 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:31:34.597 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:31:34.598 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 12.6164ms
+2024-12-06 11:31:34.598 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:31:34.598 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 13.9853ms
+2024-12-06 11:32:01.908 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5206/Department/create - multipart/form-data; boundary=----WebKitFormBoundaryDs5G9jhrfqWFaEIM 240
+2024-12-06 11:32:01.908 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 11:32:01.908 +07:00 [INF] Route matched with {action = "Create", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Pelengkap.Dto.Departmentjoin.CreateDeparmentDto) on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:32:01.917 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [TeachersJoin] AS [t]
+        WHERE [t].[Id] = @__id_0) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2024-12-06 11:32:01.934 +07:00 [INF] Executed DbCommand (15ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [DepartmentsJoin] ([Name], [TeacherId])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1);
+2024-12-06 11:32:01.937 +07:00 [INF] Executing CreatedAtActionResult, writing value of type 'Pelengkap.Dto.Departmentjoin.DepartmentjoinDto'.
+2024-12-06 11:32:01.938 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.Create (Pelengkap) in 29.3585ms
+2024-12-06 11:32:01.938 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.Create (Pelengkap)'
+2024-12-06 11:32:01.939 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5206/Department/create - 201 null application/json; charset=utf-8 30.8264ms
+2024-12-06 11:32:10.333 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/Department - null null
+2024-12-06 11:32:10.334 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:32:10.334 +07:00 [INF] Route matched with {action = "GetAll", controller = "Department"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller Pelengkap.Controller.DepartmentController (Pelengkap).
+2024-12-06 11:32:10.337 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:32:10.339 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+SelectListIterator`2[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Departmentjoin.DepartmentjoinDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:32:10.339 +07:00 [INF] Executed action Pelengkap.Controller.DepartmentController.GetAll (Pelengkap) in 5.2979ms
+2024-12-06 11:32:10.339 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.DepartmentController.GetAll (Pelengkap)'
+2024-12-06 11:32:10.340 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/Department - 200 null application/json; charset=utf-8 6.3621ms
+2024-12-06 11:34:18.795 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:34:18.801 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 6.2563ms
+2024-12-06 11:34:18.845 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:34:18.845 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.5055ms
+2024-12-06 11:34:19.329 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:34:19.356 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 27.001ms
+2024-12-06 11:34:29.596 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:34:29.597 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.4389ms
+2024-12-06 11:34:29.717 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:34:29.717 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.25ms
+2024-12-06 11:34:30.505 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:34:30.530 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET groupjoin/student-group" for actions - Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap),Pelengkap.Controller.GroupJoinController.GetStudent (Pelengkap). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-06 11:34:30.544 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 39.1303ms
+2024-12-06 11:38:19.552 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:38:19.555 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.6105ms
+2024-12-06 11:38:19.595 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:38:19.595 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.4404ms
+2024-12-06 11:38:19.704 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:38:19.746 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET groupjoin/student-group" for actions - Pelengkap.Controller.GroupJoinController.GetAll (Pelengkap),Pelengkap.Controller.GroupJoinController.GetStudent (Pelengkap),Pelengkap.Controller.GroupJoinController.GetStudentDepartment (Pelengkap). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2024-12-06 11:38:19.748 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 44.413ms
+2024-12-06 11:38:33.400 +07:00 [INF] Starting Web API
+2024-12-06 11:38:33.839 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 11:38:33.844 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 11:38:33.846 +07:00 [INF] Hosting environment: Development
+2024-12-06 11:38:33.846 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 11:38:33.918 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:38:34.085 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 167.6971ms
+2024-12-06 11:38:34.221 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:38:34.225 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 3.8119ms
+2024-12-06 11:38:34.290 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:38:34.536 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 245.655ms
+2024-12-06 11:38:39.241 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - null null
+2024-12-06 11:38:39.275 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 11:38:39.283 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentDepartment (Pelengkap)'
+2024-12-06 11:38:39.326 +07:00 [INF] Route matched with {action = "GetStudentDepartment", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentDepartment() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 11:38:40.786 +07:00 [INF] Executed DbCommand (35ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 11:38:40.882 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 11:38:40.925 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<GroupJoinIterator>d__119`4[[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Group.StudentGroupDepartDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 11:38:40.952 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentDepartment (Pelengkap) in 1621.2399ms
+2024-12-06 11:38:40.953 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentDepartment (Pelengkap)'
+2024-12-06 11:38:40.969 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-group - 200 null application/json; charset=utf-8 1727.9419ms
+2024-12-06 11:39:08.496 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:39:08.500 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 4.3003ms
+2024-12-06 11:39:08.540 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:39:08.541 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.9767ms
+2024-12-06 11:39:08.726 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:39:08.767 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 41.1538ms
+2024-12-06 11:42:24.989 +07:00 [INF] Starting Web API
+2024-12-06 11:42:26.255 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 11:42:26.264 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 11:42:26.265 +07:00 [INF] Hosting environment: Development
+2024-12-06 11:42:26.265 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 11:42:26.842 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:42:27.124 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 284.6246ms
+2024-12-06 11:42:29.357 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:42:29.362 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 5.1223ms
+2024-12-06 11:42:29.716 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:42:30.118 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 401.482ms
+2024-12-06 11:46:23.319 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 11:46:23.324 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 4.8383ms
+2024-12-06 11:46:23.361 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 11:46:23.361 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.6936ms
+2024-12-06 11:46:23.786 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 11:46:23.805 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 18.6275ms
+2024-12-06 12:42:14.905 +07:00 [INF] Starting Web API
+2024-12-06 12:42:15.274 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 12:42:15.279 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 12:42:15.280 +07:00 [INF] Hosting environment: Development
+2024-12-06 12:42:15.280 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 12:43:11.385 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 12:43:11.527 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 141.7242ms
+2024-12-06 12:43:11.560 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 12:43:11.579 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 19.0294ms
+2024-12-06 12:43:11.870 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 12:43:12.064 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 194.0408ms
+2024-12-06 12:43:17.325 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/department-group - null null
+2024-12-06 12:43:17.341 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 12:43:17.348 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetDepartmentTeacher (Pelengkap)'
+2024-12-06 12:43:17.378 +07:00 [INF] Route matched with {action = "GetDepartmentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDepartmentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 12:43:18.816 +07:00 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 12:43:18.908 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 12:43:18.949 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<GroupJoinIterator>d__119`4[[Pelengkap.Model.Teacher, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Department, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[Pelengkap.Dto.Group.DepartmentGroupDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 12:43:18.977 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetDepartmentTeacher (Pelengkap) in 1593.8078ms
+2024-12-06 12:43:18.978 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetDepartmentTeacher (Pelengkap)'
+2024-12-06 12:43:18.998 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/department-group - 200 null application/json; charset=utf-8 1673.1736ms
+2024-12-06 13:55:53.234 +07:00 [INF] Starting Web API
+2024-12-06 13:55:53.738 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 13:55:53.743 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 13:55:53.743 +07:00 [INF] Hosting environment: Development
+2024-12-06 13:55:53.744 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 14:19:19.699 +07:00 [INF] Starting Web API
+2024-12-06 14:19:20.029 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 14:19:20.034 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 14:19:20.034 +07:00 [INF] Hosting environment: Development
+2024-12-06 14:19:20.034 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 14:19:26.364 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:19:26.539 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 169.4167ms
+2024-12-06 14:19:26.560 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:19:26.565 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 4.6758ms
+2024-12-06 14:19:26.911 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:19:27.113 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 202.4589ms
+2024-12-06 14:19:39.225 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - null null
+2024-12-06 14:19:39.239 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 14:19:39.243 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:19:39.271 +07:00 [INF] Route matched with {action = "GetStudentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 14:19:40.792 +07:00 [INF] Executed DbCommand (35ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 14:19:40.939 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 14:19:40.972 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2024-12-06 14:19:40.979 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap) in 1702.2413ms
+2024-12-06 14:19:40.980 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:19:40.993 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - 200 null text/plain; charset=utf-8 1768.7739ms
+2024-12-06 14:20:35.598 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:20:35.601 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.1631ms
+2024-12-06 14:20:35.639 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:20:35.645 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 5.4802ms
+2024-12-06 14:20:35.778 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:20:35.779 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.8055ms
+2024-12-06 14:20:37.789 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:20:37.833 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 44.1149ms
+2024-12-06 14:20:40.310 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:20:40.311 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.0093ms
+2024-12-06 14:20:40.344 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:20:40.344 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3521ms
+2024-12-06 14:20:40.465 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:20:40.512 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 46.9725ms
+2024-12-06 14:20:40.811 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:20:40.812 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 0.7837ms
+2024-12-06 14:20:40.853 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:20:40.853 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.32ms
+2024-12-06 14:20:40.993 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:20:41.010 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 17.4693ms
+2024-12-06 14:20:45.444 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - null null
+2024-12-06 14:20:45.444 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:20:45.475 +07:00 [INF] Route matched with {action = "GetStudentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 14:20:45.556 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 14:20:45.561 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 14:20:45.570 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<JoinIterator>d__129`4[[Pelengkap.Model.Teacher, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType8`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Group.StudentTeacherDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 14:20:45.591 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap) in 116.2886ms
+2024-12-06 14:20:45.591 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:20:45.593 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - 200 null application/json; charset=utf-8 148.8158ms
+2024-12-06 14:20:57.540 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:20:57.542 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.1749ms
+2024-12-06 14:20:57.603 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:20:57.603 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.4061ms
+2024-12-06 14:20:57.762 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:20:57.783 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 21.6482ms
+2024-12-06 14:21:00.792 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:21:00.793 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 0.9301ms
+2024-12-06 14:21:00.879 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:21:00.879 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.2817ms
+2024-12-06 14:21:01.010 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:21:01.027 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 16.7336ms
+2024-12-06 14:21:49.883 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:21:49.884 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.2549ms
+2024-12-06 14:21:49.937 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:21:49.937 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3209ms
+2024-12-06 14:21:50.170 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:21:50.188 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 17.5242ms
+2024-12-06 14:24:07.148 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:24:07.151 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.2315ms
+2024-12-06 14:24:07.242 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:24:07.242 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.4525ms
+2024-12-06 14:24:07.740 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:24:07.768 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 28.0807ms
+2024-12-06 14:24:08.898 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:24:08.899 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.5383ms
+2024-12-06 14:24:09.049 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:24:09.049 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.2279ms
+2024-12-06 14:24:09.164 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:24:09.174 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 10.4092ms
+2024-12-06 14:24:14.164 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - null null
+2024-12-06 14:24:14.165 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:24:14.175 +07:00 [INF] Route matched with {action = "GetStudentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 14:24:14.296 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 14:24:14.302 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 14:24:14.304 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<JoinIterator>d__129`4[[Pelengkap.Model.Teacher, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType8`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Group.StudentTeacherDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 14:24:14.308 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap) in 132.2882ms
+2024-12-06 14:24:14.308 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:24:14.308 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - 200 null application/json; charset=utf-8 144.0086ms
+2024-12-06 14:26:39.454 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:26:39.455 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.7132ms
+2024-12-06 14:26:39.488 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:26:39.489 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3273ms
+2024-12-06 14:26:40.015 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:26:40.032 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 17.3825ms
+2024-12-06 14:26:46.024 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:26:46.028 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 4.2015ms
+2024-12-06 14:26:46.066 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:26:46.067 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.4005ms
+2024-12-06 14:26:46.231 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:26:46.271 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 39.627ms
+2024-12-06 14:26:50.496 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - null null
+2024-12-06 14:26:50.496 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:26:50.531 +07:00 [INF] Route matched with {action = "GetStudentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 14:26:50.559 +07:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 14:26:50.568 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 14:26:50.570 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Pelengkap.Dto.Group.StudentTeacherDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 14:26:50.573 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap) in 40.9914ms
+2024-12-06 14:26:50.573 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:26:50.573 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - 200 null application/json; charset=utf-8 77.4683ms
+2024-12-06 14:27:55.101 +07:00 [INF] Starting Web API
+2024-12-06 14:27:55.509 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 14:27:55.515 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 14:27:55.516 +07:00 [INF] Hosting environment: Development
+2024-12-06 14:27:55.516 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 14:27:55.582 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:27:55.747 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 165.8775ms
+2024-12-06 14:27:55.772 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:27:55.777 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 4.8556ms
+2024-12-06 14:27:55.945 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:27:56.110 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 164.6467ms
+2024-12-06 14:28:11.346 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - null null
+2024-12-06 14:28:11.357 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 14:28:11.365 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:28:11.405 +07:00 [INF] Route matched with {action = "GetStudentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 14:28:13.015 +07:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 14:28:13.128 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 14:28:13.151 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Pelengkap.Dto.Group.StudentTeacherDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 14:28:13.171 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap) in 1761.1331ms
+2024-12-06 14:28:13.172 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:28:13.189 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - 200 null application/json; charset=utf-8 1842.4674ms
+2024-12-06 14:28:36.473 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:28:36.477 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 3.8919ms
+2024-12-06 14:28:36.512 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:28:36.514 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.7375ms
+2024-12-06 14:28:36.697 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:28:36.727 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 29.6861ms
+2024-12-06 14:31:00.558 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:31:00.559 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.1339ms
+2024-12-06 14:31:00.670 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:31:00.671 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.5246ms
+2024-12-06 14:31:01.067 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:31:01.102 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 34.5949ms
+2024-12-06 14:31:10.542 +07:00 [INF] Starting Web API
+2024-12-06 14:31:10.932 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 14:31:10.939 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 14:31:10.940 +07:00 [INF] Hosting environment: Development
+2024-12-06 14:31:10.940 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 14:31:11.003 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:31:11.162 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 160.2225ms
+2024-12-06 14:31:11.193 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:31:11.197 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 4.2992ms
+2024-12-06 14:31:11.359 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:31:11.523 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 163.1576ms
+2024-12-06 14:32:46.849 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - null null
+2024-12-06 14:32:46.862 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 14:32:46.868 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:32:46.897 +07:00 [INF] Route matched with {action = "GetStudentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 14:32:48.362 +07:00 [INF] Executed DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 14:32:48.456 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 14:32:48.478 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Pelengkap.Dto.Group.StudentTeacherDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 14:32:48.497 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap) in 1595.1742ms
+2024-12-06 14:32:48.498 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:32:48.515 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - 200 null application/json; charset=utf-8 1666.1958ms
+2024-12-06 14:33:12.275 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:33:12.278 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 3.2983ms
+2024-12-06 14:33:12.329 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:33:12.330 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 1.0752ms
+2024-12-06 14:33:12.899 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:33:12.949 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 50.3094ms
+2024-12-06 14:33:18.597 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - null null
+2024-12-06 14:33:18.598 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:33:18.612 +07:00 [INF] Route matched with {action = "GetStudentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 14:33:18.658 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 14:33:18.661 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 14:33:18.669 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<JoinIterator>d__129`4[[Pelengkap.Model.Teacher, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType8`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Group.StudentTeacherDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 14:33:18.674 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap) in 59.9085ms
+2024-12-06 14:33:18.675 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:33:18.676 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - 200 null application/json; charset=utf-8 78.3882ms
+2024-12-06 14:33:39.146 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:33:39.149 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.046ms
+2024-12-06 14:33:39.237 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:33:39.237 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3437ms
+2024-12-06 14:33:39.438 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:33:39.468 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 30.4335ms
+2024-12-06 14:33:46.656 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:33:46.658 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.0302ms
+2024-12-06 14:33:46.695 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:33:46.696 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3383ms
+2024-12-06 14:33:46.889 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:33:46.911 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 21.6321ms
+2024-12-06 14:34:55.439 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:34:55.440 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 0.8127ms
+2024-12-06 14:34:55.490 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:34:55.491 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.4381ms
+2024-12-06 14:34:55.665 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:34:55.690 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 25.1983ms
+2024-12-06 14:35:05.902 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:35:05.903 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.6243ms
+2024-12-06 14:35:05.944 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:35:05.944 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.2992ms
+2024-12-06 14:35:06.101 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:35:06.124 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 22.8437ms
+2024-12-06 14:43:17.133 +07:00 [INF] Starting Web API
+2024-12-06 14:43:17.474 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 14:43:17.479 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 14:43:17.480 +07:00 [INF] Hosting environment: Development
+2024-12-06 14:43:17.480 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 14:43:17.541 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:43:17.674 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 133.8687ms
+2024-12-06 14:43:17.691 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:43:17.696 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 5.7419ms
+2024-12-06 14:43:17.979 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:43:18.126 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 146.4496ms
+2024-12-06 14:43:24.391 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - null null
+2024-12-06 14:43:24.402 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 14:43:24.413 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:43:24.456 +07:00 [INF] Route matched with {action = "GetStudentTeacher", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetStudentTeacher() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 14:43:25.950 +07:00 [INF] Executed DbCommand (35ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 14:43:26.045 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 14:43:26.065 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+<JoinIterator>d__129`4[[Pelengkap.Model.Teacher, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Model.Student, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType8`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[Pelengkap.Dto.Group.StudentTeacherDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 14:43:26.092 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap) in 1631.4652ms
+2024-12-06 14:43:26.093 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetStudentTeacher (Pelengkap)'
+2024-12-06 14:43:26.111 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/student-teacher - 200 null application/json; charset=utf-8 1719.9789ms
+2024-12-06 14:44:08.768 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:44:08.772 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 3.8454ms
+2024-12-06 14:44:08.812 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:44:08.813 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.6594ms
+2024-12-06 14:44:09.444 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:44:09.477 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 33.0581ms
+2024-12-06 14:44:13.486 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:44:13.488 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.3373ms
+2024-12-06 14:44:13.517 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:44:13.518 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3621ms
+2024-12-06 14:44:13.658 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:44:13.682 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 24.0076ms
+2024-12-06 14:47:32.958 +07:00 [INF] Starting Web API
+2024-12-06 14:47:33.302 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 14:47:33.308 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 14:47:33.309 +07:00 [INF] Hosting environment: Development
+2024-12-06 14:47:33.309 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 14:47:33.389 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 14:47:33.523 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 134.8969ms
+2024-12-06 14:47:33.551 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 14:47:33.559 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 7.7468ms
+2024-12-06 14:47:33.698 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 14:47:33.839 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 140.4547ms
+2024-12-06 15:05:52.008 +07:00 [INF] Starting Web API
+2024-12-06 15:05:52.351 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 15:05:52.356 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 15:05:52.357 +07:00 [INF] Hosting environment: Development
+2024-12-06 15:05:52.357 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 15:05:52.414 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 15:05:52.554 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 140.8929ms
+2024-12-06 15:05:52.575 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 15:05:52.579 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 4.4934ms
+2024-12-06 15:05:52.857 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 15:05:53.022 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 164.8306ms
+2024-12-06 16:17:29.450 +07:00 [INF] Application is shutting down...
+2024-12-06 17:49:37.091 +07:00 [INF] Starting Web API
+2024-12-06 17:49:37.510 +07:00 [INF] Now listening on: http://localhost:5206
+2024-12-06 17:49:37.517 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-06 17:49:37.517 +07:00 [INF] Hosting environment: Development
+2024-12-06 17:49:37.518 +07:00 [INF] Content root path: C:\belajar_dotnet\Pelengkap
+2024-12-06 17:49:38.098 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 17:49:38.299 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 202.8504ms
+2024-12-06 17:49:38.323 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 17:49:38.334 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 9.6377ms
+2024-12-06 17:49:38.697 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 17:49:38.903 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 206.105ms
+2024-12-06 17:50:09.733 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 17:50:09.752 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 20.1739ms
+2024-12-06 17:50:09.814 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 17:50:09.817 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 1.4285ms
+2024-12-06 17:50:09.958 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 17:50:09.994 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 35.5718ms
+2024-12-06 17:52:02.353 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 17:52:02.355 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.2723ms
+2024-12-06 17:52:02.420 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 17:52:02.421 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.4779ms
+2024-12-06 17:52:02.514 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 17:52:02.551 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 37.2156ms
+2024-12-06 17:52:06.168 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 17:52:06.170 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 2.3283ms
+2024-12-06 17:52:06.212 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 17:52:06.212 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.5006ms
+2024-12-06 17:52:06.327 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 17:52:06.347 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 19.7455ms
+2024-12-06 17:52:19.294 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/groupjoin/all-group - null null
+2024-12-06 17:52:19.302 +07:00 [WRN] Failed to determine the https port for redirect.
+2024-12-06 17:52:19.309 +07:00 [INF] Executing endpoint 'Pelengkap.Controller.GroupJoinController.GetAllGroup (Pelengkap)'
+2024-12-06 17:52:19.340 +07:00 [INF] Route matched with {action = "GetAllGroup", controller = "GroupJoin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllGroup() on controller Pelengkap.Controller.GroupJoinController (Pelengkap).
+2024-12-06 17:52:21.507 +07:00 [INF] Executed DbCommand (43ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[City], [t].[First], [t].[Last]
+FROM [TeachersJoin] AS [t]
+2024-12-06 17:52:21.601 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Name], [d].[TeacherId]
+FROM [DepartmentsJoin] AS [d]
+2024-12-06 17:52:21.637 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Id], [s].[DepartmentId], [s].[Firstname], [s].[Lastname]
+FROM [StudentsJoin] AS [s]
+2024-12-06 17:52:21.671 +07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Pelengkap.Dto.Group.TeachDepartStudGroupDto, Pelengkap, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-12-06 17:52:21.695 +07:00 [INF] Executed action Pelengkap.Controller.GroupJoinController.GetAllGroup (Pelengkap) in 2350.1097ms
+2024-12-06 17:52:21.696 +07:00 [INF] Executed endpoint 'Pelengkap.Controller.GroupJoinController.GetAllGroup (Pelengkap)'
+2024-12-06 17:52:21.708 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/groupjoin/all-group - 200 null application/json; charset=utf-8 2414.0476ms
+2024-12-06 17:53:40.509 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/index.html - null null
+2024-12-06 17:53:40.511 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/index.html - 200 null text/html;charset=utf-8 1.8258ms
+2024-12-06 17:53:40.558 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-06 17:53:40.559 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/_framework/aspnetcore-browser-refresh.js - 200 13732 application/javascript; charset=utf-8 0.3293ms
+2024-12-06 17:53:40.685 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - null null
+2024-12-06 17:53:40.720 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5206/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 34.5865ms
+2024-12-06 18:05:48.388 +07:00 [INF] Application is shutting down...
